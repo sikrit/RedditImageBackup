@@ -7,10 +7,7 @@ class Save:
         self.by_sub = by_sub
 
     def get_dir(self, author, sub):
-        if self.by_sub:
-            folder = os.path.join(self.base_dir, sub)
-        else:
-            folder = os.path.join(self.base_dir, sub, author)
+        folder = os.path.join(self.base_dir, sub)
         if not os.path.exists(folder):
             os.makedirs(folder)
         return folder
