@@ -88,7 +88,7 @@ class Common:
         return page_html
 
     def format_name(self, title):
-       # title = re.sub('[?/|\\\:<>*"]', '', title)
+        title = re.sub('[?/|\\\:<>*"]', '', title)
         if len(title) > 190:
             title = title[:120]
         return title
