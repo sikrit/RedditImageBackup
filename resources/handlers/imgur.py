@@ -46,7 +46,7 @@ class Imgur(Common):
         self.link = "https://imgur.com/{}{}".format(
             self.data["hash"], self.data["ext"])
         direct_description = self.direct
-        self.direct = os.path.join(self.direct, "{}-{}{}".format(
+        self.direct = os.path.join("{}-{}{}".format(
             self.format_name(self.data["title"]), self.data["hash"], self.data["ext"]))
         self.logger.debug("Saving single image {}".format(self.link))
 
