@@ -1,19 +1,19 @@
 {
-    "general": {
-        "database_location": "./downloaded.db",
-        "logger_append": false,
-        "log_file": "./grabber.log"
+  "general": {
+    "database_location": "./downloaded.db",
+    "logger_append": false,
+    "log_file": "./grabber.log"
+  },
+  "reddit": {
+    "creds": {
+      "client_id": "",
+      "client_secret": "",
+      "user_agent": "Downloads submissions by user/subreddit"
     },
-    "reddit": {
-        "creds": {
-            "client_id": "",
-            "client_secret": "",
-            "user_agent": "Downloads submissions by user/subreddit"
-        },
-        "blacklist": []
-    },
-    "media_download": {
-        "retries": 5,
-        "wait_time": 60
-    }
+    "blacklist": []
+  },
+  "media_download": {
+    "retries": 3,
+    "wait_time": 30
+  }
 }
