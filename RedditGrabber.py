@@ -28,7 +28,7 @@ class color:
 
 with open('./resources/config.json') as f:
     config = json.load(f)
-save = Save(os.getcwd(), False)
+save = Save(os.getcwd(), True)
 logger = logging.getLogger(__name__)
 db = None
 
@@ -81,7 +81,9 @@ def grabber(subR, base_dir, posts, sort):
                     f.write(str(submission.selftext.encode('utf-8')))
 
             # Link to a jpg, png, gifv, gif, jpeg
-            elif any(ext in link for ext in ['.jpg', '.png', '.gif', 'gifv', 'jpeg']) or 'i.reddituploads.com' in link:
+            # elif any(ext in link for ext in ['.jpg', '.png', '.gif', 'gifv', 'jpeg']) or 'i.reddituploads.com' in link:
+
+            elif any(ext in link for ext in ['.jpg', '.png', 'jpeg']) or 'i.reddituploads.com' in link:
                 Common(link, title, save.get_dir(
                     str(submission.author), str(submission.subreddit)))
 
@@ -216,9 +218,9 @@ def main(args):
     with open('./resources/config.json', 'w') as f:
         json.dump(config, f)
 
-    # by_author
+    # by_sub !!!
     global save
-    save = Save(base_dir, args.by_author)
+    save = Save(base_dir, args.by_sub)
 
     # initialise database
     global db
@@ -253,7 +255,7 @@ if __name__ == '__main__':
     parser.add_argument(
         "-o", "--output", help="Set base directory to start download")
     parser.add_argument(
-        "--by_author", help="Sort downloads by author, default by subreddit", action="store_true")
+        "--by_sub", help="Sort downloads by author, default by subreddit", action="store_true")
     parser.add_argument(
         "--sort", help="Sort submissions by 'hot', 'new' or 'top'")
     parser.add_argument("-v", "--verbose",

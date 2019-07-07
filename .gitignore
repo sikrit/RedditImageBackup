@@ -2,3 +2,9 @@ todo.txt
 __pycache__/
 *.py[code]
 .vscode/
+grabber.log
+downloaded.db
+*.jpg
+*.png
+*.gif
+*.mp4

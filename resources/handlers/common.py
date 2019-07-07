@@ -32,24 +32,31 @@ class Common:
         except:
             self.logger.error(
                 "TypeError: Media download retries or wait time is not an integer.")
-            self.retries = 5
+            self.retries = 3
             self.wait_time = 60
 
     def save(self):
-        if 'gifv' in self.link:
-            ext = '.mp4'
-            self.link = self.link.replace('gifv', 'mp4')
-        elif 'i.reddituploads.com' in self.link:
-            ext = '.jpeg'
-        else:
-            ext = '.' + \
-                re.search('jpg$|png$|gif$|jpeg$|mp4$', self.link).group()
-        self.direct = os.path.join(
-            self.direct, self.format_name(self.name) + ext)
+        try:
+            if 'gifv' in self.link:
+                ext = '.mp4'
+                self.link = self.link.replace('gifv', 'mp4')
+            elif 'i.reddituploads.com' in self.link:
+                ext = '.jpeg'
+            else:
+                ext = '.' + \
+                    re.search('jpg$|png$|gif$|jpeg$|mp4$', self.link).group()
+            self.direct = os.path.join(
+                self.direct, self.format_name(self.link.split("/")[-1]))
 
-        self.logger.debug("Saving {} with extension {}".format(self.link, ext))
+            self.logger.debug(
+                "Saving {} with extension {}".format(self.link, ext))
 
-        self.save_image()
+            self.save_image()
+        except Exception as e:
+            self.logger.error(
+                "{} - Error {}".format(self.link, e))
+
+            print(e)
 
     def save_image(self, current_retry=1):
         try:
@@ -57,7 +64,7 @@ class Common:
         except URLError:
             if self.retries > current_retry:
                 self.logger.warning("Retrying {}".format(self.link))
-                time.sleep(5)
+                time.sleep(3)
                 current_retry += 1
                 self.save_image(current_retry)
             else:
@@ -81,7 +88,7 @@ class Common:
         return page_html
 
     def format_name(self, title):
-        title = re.sub('[?/|\\\:<>*"]', '', title)
+       # title = re.sub('[?/|\\\:<>*"]', '', title)
         if len(title) > 190:
             title = title[:120]
         return title
